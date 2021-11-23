@@ -9,7 +9,7 @@ Der GU-key beschreibt eine nach INSPIRE harmonisierte Geologische Einheit und en
 Beispiel: 	**g120-g23-t20-ml158-pl44-pa26-ya35-oa34-ep50-ee12-GU-dn**  
 Reihenfolge: **Geologic, Tekt., Lithology, Geologic Event, “GU”, desc. purpose**  
   
-##1) Kodierung  
+## 1) Kodierung  
     - Bedeutung der Buchstaben-Kürzel in der festgelegten Reihenfolge:  
 g.. geologische Einheit (Name), [n]  = Mehrfach-Einträge möglich
 t.. tektonische Einheit (Name), [n]  
@@ -27,7 +27,7 @@ dn.. zB defining norm, tn.. typical norm, oder in.. instance
     - bei Mehrfach-Einträgen (zusammengesetzte Einheiten) werden die Codes hintereinander geschrieben, zB zwei Geologische Formationen g120-g23-, oder mehrere lithologische (Neben-)Bestandteile pl44-pl45-  
     - bei Geol. Events kann durch Mehrfach-Einträge auch eine „Event History“ gereiht von alt nach jung (?) angegeben werden.  
   
-##2) Anwendung  
+## 2) Anwendung  
     - aus dem GU-key kann ein kompletter Legendentext (Deutsch oder Englisch) automatisiert erstellt werden, welcher den „harmonisierten“ Inhalt einer Geologischen Einheit nach INSPIRE beschreibt  
     - er könnte zB in Webkarten, Profilbeschreibungen, Kartierungspunkten oder für Bohrabschnitte verwendet werden, ohne gleich ein komplettes Datenbanksystem mitzuführen.  
     - der GU-key kann in Datenbank Systemen (SQL, concat) automatisiert in einer eigenen zusätzlichen Tabellenspalte erstellt werden, und kodiert dabei mehrere verbundene Tabellen in einen definierten Text (String). Umgekehrt könnte aus dem GU-key eine Datenbankstruktur befüllt werden  
@@ -35,7 +35,7 @@ dn.. zB defining norm, tn.. typical norm, oder in.. instance
     - Abfragen von WFS Services nach bestimmten Attributen sollten möglich sein  
     - Import in Excel mit leichten Modifikationen (zB Spaltentrennung nach g, t, pa und GU) sollte möglich sein  
   
-##3) Validierung  
+## 3) Validierung  
     - eine Validierung kann praktisch über eine Website in JavaScript erfolgen, ebenso wie der GU-key auch in Webkarten und Linked Data als validierte Definition eines Legendeneintrags verwendet werden kann  
     - der GU-key darf keine Leerzeichen enthalten und muss mit GU-xx abgeschlossen werden  
     - ml.. Lithologischer Haupt-Bestandteil darf nur einmal vorkommen  
