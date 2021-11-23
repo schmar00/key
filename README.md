@@ -24,7 +24,7 @@ pl.. lithologischer Neben-Bestandteil (present lithology), Mehrfach-Einträge m�
   ee.. Event-Environment  
 dn.. zB defining norm, tn.. typical norm, oder in.. instance  
 ```   
-- die Trennung der einzelnen Attribute erfolgt durch Bindestriche (minus), und muss mit einem ```-GU-tn``` (für Geologic Unit) plus Angabe des “Description Purpose” (zB tn für “typical norm”) abgeschlossen werden  
+- die Trennung der einzelnen Attribute erfolgt durch Bindestriche (minus), und muss mit einem ```-GU-tn``` (für Geologic Unit) plus Angabe des “Description Purpose” (zB ```tn``` für “typical norm”) abgeschlossen werden  
 - die Buchstaben-Kürzel werden mit der betreffenden Nummer der Concept-URI vom GBA Thesaurus kombiniert, zB ```ml158-```, für Sedimentäres Material (http://resource.geolba.ac.at/lithology/158 vom „GBA Lithologie Thesaurus“)  
 - bei Mehrfach-Einträgen (zusammengesetzte Einheiten) werden die Codes hintereinander geschrieben, zB zwei Geologische Formationen ```g120-g23-```, oder mehrere lithologische (Neben-)Bestandteile ```pl44-pl45-```  
 - bei Geol. Events kann durch Mehrfach-Einträge auch eine „Event History“ gereiht von alt nach jung (?) angegeben werden.  
