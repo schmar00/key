@@ -6,7 +6,7 @@ __________
 DE: Vorschlag für einen Schlüssel zur Kodierung harmonisierter Geologischer Einheiten (GU-key)
 Der GU-key beschreibt eine nach INSPIRE harmonisierte Geologische Einheit und enthält die Nummern der URIs aus dem GBA Thesaurus. Damit soll eine Verwendung der harmonisierten Information nach INSPIRE auch außerhalb von Datenbanksystemen (z.B. Webapplikationen und JavaScript) erleichtert werden.  
   
-Beispiel: 	```**g120-g23-t20-ml158-pl44-pa26-ya35-oa34-ep50-ee12-GU-dn**```  
+Beispiel: 	```g120-g23-t20-ml158-pl44-pa26-ya35-oa34-ep50-ee12-GU-dn```  
 Reihenfolge: **Geologic, Tekt., Lithology, Geologic Event, “GU”, desc. purpose**  
   
 ## 1) Kodierung  
