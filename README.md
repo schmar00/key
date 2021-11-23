@@ -39,8 +39,8 @@ dn.. zB defining norm, tn.. typical norm, oder in.. instance
   
 ## 3) Validierung  
 - eine Validierung kann praktisch über eine Website in JavaScript erfolgen, ebenso wie der GU-key auch in Webkarten und Linked Data als validierte Definition eines Legendeneintrags verwendet werden kann  
-- der GU-key darf keine Leerzeichen enthalten und muss mit ```GU-xx``` abgeschlossen werden  
+- der GU-key darf keine Leerzeichen enthalten und muss mit ```GU-..``` abgeschlossen werden  
 - ```ml..``` Lithologischer Haupt-Bestandteil darf nur einmal vorkommen  
-- Mindestanforderung pa.. für jeden neuen Geologic Event  
+- Mindestanforderung ```pa..``` für jeden neuen Geologic Event  
 - ein gültiger Key muss, bei nicht vollständig harmonisierten Einträgen, nicht alle Attribute enthalten (zB. nur ```g952-GU-dn``` für „Zollner Formation“ oder ```pa26-GU-in``` für Mesozoikum)  
 - die Reihenfolge der Attribute, wie unter 1) Kodierung beschrieben, muss aber jedenfalls, u.a. wegen der Identifizierbarkeit von Mehrfach-Einträgen, eingehalten werden  
