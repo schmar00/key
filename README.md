@@ -44,3 +44,6 @@ dn.. zB defining norm, tn.. typical norm, oder in.. instance
 - Mindestanforderung ```pa..``` für jeden neuen Geologic Event  
 - ein gültiger Key muss, bei nicht vollständig harmonisierten Einträgen, nicht alle Attribute enthalten (zB. nur ```g952-GU-dn``` für „Zollner Formation“ oder ```pa26-GU-in``` für Mesozoikum)  
 - die Reihenfolge der Attribute, wie unter 1) Kodierung beschrieben, muss aber jedenfalls, u.a. wegen der Identifizierbarkeit von Mehrfach-Einträgen, eingehalten werden  
+  
+## 4) GeoSciML Geologic Unit  
+![class diagram](http://www.onegeology.org/service_provision/_images/image001.jpg)  
