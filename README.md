@@ -1,12 +1,13 @@
 # GU-key
 
-a key for GeoSciML Geologic Units to describe complex features
+a key for GeoSciML Geologic Units to describe complex features  
+e.g. <https://schmar00.github.io/GU-key/?key=gu120-gu23-tu20-ml158-pl44-pa26-ya35-oa34-ep50-ee12-GU-dn>
 
 __________
 DE: Vorschlag für einen Schlüssel zur Kodierung harmonisierter Geologischer Einheiten (GU-key)
 Der GU-key beschreibt eine nach INSPIRE harmonisierte Geologische Einheit und enthält die Nummern der URIs aus dem GBA Thesaurus. Damit soll eine Verwendung der harmonisierten Information nach INSPIRE auch außerhalb von Datenbanksystemen (z.B. Webapplikationen und JavaScript) erleichtert werden.  
   
-Beispiel: ```gu120-gu23-tu20-ml158-pl44-pa26-ya35-oa34-ep50-ee12-dn```  
+Beispiel: ```gu120-gu23-``````tu20-``````ml158-pl44-``````pa26-ya35-oa34-ep50-ee12-dn```  
 Reihenfolge: **Geologic, Tekt., Lithology, Geologic Event, desc. purpose**  
   
 ## 1) Kodierung  
