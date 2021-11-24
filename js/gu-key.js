@@ -1,38 +1,4 @@
 // e.g. gu120-gu23-tu20-ml158-pl44-pa26-ya35-oa34-ep50-ee12-GU-dn
-/* 
-switch (new Date().getDay()) {
-case 'gu':
-    legendenText += '';
-    break;
-case 'tu':
-    legendenText += '';
-    break;
-case 'ml':
-    legendenText += '';
-    break;
-case 'pl':
-    legendenText += '';
-    break;
-case 'pa':
-    legendenText += '';
-    break;
-case 'ya':
-    legendenText += '';
-    break;
-case 'oa':
-    legendenText += '';
-    break;
-case 'ep':
-    legendenText += '';
-    break;
-case 'ee':
-    legendenText += '';
-    break;
-case 'dn':
-    legendenText += '';
-}
-    */
-
 
 let USER_LANG = 'en';
 const BASE = location.protocol + '//' + location.host + location.pathname;
