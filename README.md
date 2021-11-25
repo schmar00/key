@@ -1,7 +1,8 @@
 # GU-key
 
 a key for GeoSciML Geologic Units to describe complex features  
-e.g. <https://schmar00.github.io/GU-key/?key=gu120-gu23-tu20-ml158-pl44-pa26-ya35-oa34-ep50-ee12-GU-dn>
+e.g. <https://schmar00.github.io/GU-key/?key=gu952-tu323-ml126-pl253-pl136-pa32-ya55-oa52-dp2>  
+or <https://schmar00.github.io/GU-key/?key=gu120-gu23-tu20-ml158-pl44-pa26-ya35-oa34-ep50-ee12-dp1>
 
 __________
 DE: Vorschlag für einen Schlüssel zur Kodierung harmonisierter Geologischer Einheiten (GU-key)
