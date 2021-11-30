@@ -41,7 +41,7 @@ e.. Event-Environment
 - der GU-key kann in Datenbank Systemen (SQL, concat) automatisiert in einer eigenen zusätzlichen Tabellenspalte erstellt werden, und kodiert dabei mehrere verbundene Tabellen in einen definierten Text (String). Umgekehrt könnte aus dem GU-key eine Datenbankstruktur befüllt werden  
 - die Kodierung kann auch als Schlüssel im Sinne einer (sortierbaren) Generallegende(?) verwendet werden.  
 - Abfragen von WFS Services nach bestimmten Attributen sollten möglich sein  
-- Import in Excel mit leichten Modifikationen (zB Spaltentrennung nach gu, tu, pa und GU) sollte möglich sein  
+- Import in Excel mit leichten Modifikationen (zB Spaltentrennung nach g, t, ml, pa) sollte möglich sein  
   
 ## 3) Validierung  
 
