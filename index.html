@@ -1,36 +1,187 @@
-<!doctype html>
-<html lang="en" class="h-100">
+<!DOCTYPE html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>GU-key validation</title>
+    <title>GU-Key</title>
+    <!-- <link rel="icon" type="image/x-icon" href="favicon.ico" /> -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/FontAwesome/all.min.css" />
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/key.js"></script>
+    <script src="js/comments.js"></script>
+    <style>
+        th {
+            cursor: pointer;
+        }
 
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
 
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" sizes="180x180">
-  <link rel="icon" href="img/favicon-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="img/favicon-16x16.png" sizes="16x16" type="image/png">
-  <link rel="icon" href="img/favicon.ico">
-  <script src="js/gu-key.js"></script>
-  <style>
-    body {
-      margin: 30px;
-    }
-  </style>
+        ul {
+            list-style-type: none;
+            /* Remove bullets */
+            padding: 0;
+            /* Remove padding */
+            margin: 2px;
+            /* Remove margins */
+        }
 
+        li {
+            text-align: left;
+            font-size: small;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="card border-primary mb-3" style="max-width: 50rem;">
-    <div id="key" class="card-header"></div>
-    <div id="legItem" class="card-body">
-    </div>
-  </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Geologische Einheiten</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" href="#">Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </li> -->
+                </ul>
+
+                <button id="addRowBtn" type="button" class="btn btn-success"">add row</button>&nbsp;&nbsp;
+                <div class=" form-group">
+                    <input class="form-control" type="file" onchange="previewFile()" accept=".csv">
+            </div>&nbsp;&nbsp;
+                <button id="exportBtn" type="button" class="btn btn-success"">CSV download</button>
+            </div>
+        </div>
+        
+    </nav>
+
+            <!-- <p class=" content" hidden></p> -->
+                <div style="padding: 20px;">
+                    <table id="myTable" class="table table-hover table-sm" style="width:100%">
+                        <tr>
+                            <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+                            <th onclick="sortTable(0)"><span style="color: crimson;">ID</span>&nbsp;&UpArrowDownArrow;
+                            </th>
+                            <th onclick="sortTable(1)"><span style="color: crimson;">Key</span>&nbsp;&UpArrowDownArrow;
+                            </th>
+                            <th onclick="sortTable(2)">color</th>
+                            <th onclick="sortTable(3)">text&nbsp;&UpArrowDownArrow;</th>
+                            <th onclick="sortTable(4)">rLith&nbsp;&UpArrowDownArrow;</th>
+                            <th onclick="sortTable(5)">rAge&nbsp;&UpArrowDownArrow;</th>
+                            <th onclick="sortTable(6)">descPurpose&nbsp;&UpArrowDownArrow;</th>
+                            <th onclick="sortTable(7)">status</th>
+                            <th onclick="sortTable(8)"><span style="color: crimson;">notes</span></th>
+                        </tr>
+                    </table>
+                </div>
+
+                <script>
+                    function toolTips() {
+                        //enable tooltips everywhere
+                        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                            return new bootstrap.Tooltip(tooltipTriggerEl)
+                        });
+                    }
+
+                    //eigene Modifikation
+                    function getSortable(a) {
+                        if (a.indexOf('>') > -1) {
+                            a = a.substring(a.indexOf('>') + 1);
+                            if (a.indexOf('&nbsp;') > -1) {
+                                a = a.substring(a.indexOf('>') + 6);
+                            }
+                        }
+                        return a
+                    }
+
+                    function sortTable(n) {
+                        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                        table = document.getElementById("myTable");
+                        switching = true;
+                        //Set the sorting direction to ascending:
+                        dir = "asc";
+                        /*Make a loop that will continue until
+                        no switching has been done:*/
+                        while (switching) {
+                            //start by saying: no switching is done:
+                            switching = false;
+                            rows = table.rows;
+                            /*Loop through all table rows (except the
+                            first, which contains table headers):*/
+                            for (i = 1; i < (rows.length - 1); i++) {
+                                //start by saying there should be no switching:
+                                shouldSwitch = false;
+                                /*Get the two elements you want to compare,
+                                one from current row and one from the next:*/
+                                x = rows[i].getElementsByTagName("TD")[n];
+                                y = rows[i + 1].getElementsByTagName("TD")[n];
+                                /*check if the two rows should switch place,
+                                based on the direction, asc or desc:*/
+                                if (dir == "asc") {
+                                    if (getSortable(x.innerHTML.toLowerCase()) > getSortable(y.innerHTML
+                                            .toLowerCase())) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                } else if (dir == "desc") {
+                                    if (getSortable(x.innerHTML.toLowerCase()) < getSortable(y.innerHTML
+                                            .toLowerCase())) {
+                                        //if so, mark as a switch and break the loop:
+                                        shouldSwitch = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (shouldSwitch) {
+                                /*If a switch has been marked, make the switch
+                                and mark that a switch has been done:*/
+                                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                switching = true;
+                                //Each time a switch is done, increase this count by 1:
+                                switchcount++;
+                            } else {
+                                /*If no switching has been done AND the direction is "asc",
+                                set the direction to "desc" and run the while loop again.*/
+                                if (switchcount == 0 && dir == "asc") {
+                                    dir = "desc";
+                                    switching = true;
+                                }
+                            }
+                        }
+                    }
+                </script>
+
 </body>
 
 </html>
