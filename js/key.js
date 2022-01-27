@@ -62,7 +62,16 @@ function addCSV(csvArr) {
 document.addEventListener("DOMContentLoaded", function (event) {
 
     $("#addRowBtn").click(function () {
-        addRow();
+        let l = addRow();
+        let el = document.getElementById('keyValue' + l);
+        let range = document.createRange();
+        let sel = window.getSelection();
+        range.setStart(el, 1);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        el.focus();
+
     });
 
     $("#exportBtn").click(function () {
@@ -70,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $("tr").each(function (index) {
             let line = [];
             $(this).children().each(function (index) {
-                line.push($(this).text().replace(' ⇅', '').replace(/\n/g,'').replace(/  /g,''));
+                line.push($(this).text().replace(' ⇅', '').replace(/\n/g, '').replace(/  /g, ''));
             });
             csvText += line.join('\t') + '\n';
         });
@@ -89,7 +98,7 @@ let lineNr = 0;
 
 function addRow() {
     lineNr = $('tr').length - 1;
-    
+
     $("#myTable").append(`<tr id="${lineNr}">
                             <td id="idValue${lineNr}" class="textarea" role="textbox" contenteditable></td>
                             <td id="keyValue${lineNr}" class="textarea" role="textbox" oninput="update(${lineNr}, this.innerHTML)" contenteditable>g</td>
@@ -255,7 +264,7 @@ function key2text(k) {
         }
     }
     //need for adaption yet
-    legText = legText.replace(' (; );','').replace('; );',')');
+    legText = legText.replace(' (; );', '').replace('; );', ')');
     if (legText.includes('<strong></strong> (')) {
         legText = legText.replace('<strong></strong> (', '').replace(')', '');
     }
