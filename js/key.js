@@ -1,7 +1,13 @@
 let USER_LANG = 'de'; //(navigator.language || navigator.language).substring(0, 2);
 let aC; // Map of all thesaurus concepts
 
-const tP = { //Thesaurus Projects plus english/german
+const options = { //fuse options
+    shouldSort: true,
+    tokenize: true,
+    keys: ['L.value']
+};
+
+let tP = { //Thesaurus Projects plus english/german
     g: ['GeologicUnit', {
         de: 'Geol. Einheit',
         en: 'Geol. Unit'
@@ -60,18 +66,17 @@ function addCSV(csvArr) {
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
-
+    $('#searchGroup').hide();
     $("#addRowBtn").click(function () {
         let l = addRow();
         let el = document.getElementById('keyValue' + l);
         let range = document.createRange();
         let sel = window.getSelection();
-        range.setStart(el, 1);
+        range.setStart(el, 0);
         range.collapse(true);
         sel.removeAllRanges();
         sel.addRange(range);
         el.focus();
-
     });
 
     $("#exportBtn").click(function () {
@@ -92,8 +97,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         USER_LANG = urlParams.get('lang');
     }
     allConcepts();
-
 });
+
 let lineNr = 0;
 
 function addRow() {
@@ -101,7 +106,7 @@ function addRow() {
 
     $("#myTable").append(`<tr id="${lineNr}">
                             <td id="idValue${lineNr}" class="textarea" role="textbox" contenteditable></td>
-                            <td id="keyValue${lineNr}" class="textarea" role="textbox" oninput="update(${lineNr}, this.innerHTML)" contenteditable>g</td>
+                            <td id="keyValue${lineNr}" class="textarea" role="textbox" oninput="update(${lineNr}, this.innerHTML)" contenteditable></td>
                             <td id="colorValue${lineNr}"></td>
                             <td id="textValue${lineNr}"></td>
                             <td id="rLithValue${lineNr}"></td>
@@ -125,7 +130,7 @@ function exportCSV(text) {
 }
 
 function update(lNr, e) {
-    //console.log(key2text(e.innerHTML)); //color, text, ml, pa, descPurpose, status
+
     $('#' + 'colorValue' + lNr).html(key2text(e).color);
     $('#' + 'textValue' + lNr).html(key2text(e).text);
     $('#' + 'rLithValue' + lNr).html(key2text(e).rLith);
@@ -133,6 +138,20 @@ function update(lNr, e) {
     $('#' + 'descPurposeValue' + lNr).html(key2text(e).descPurpose);
     $('#' + 'statusValue' + lNr).html(key2text(e).status);
     toolTips();
+
+    let a = e.slice(-1);
+    let show = false;
+    for (let [key, value] of Object.entries(tP)) {
+        if (key == a) {
+            actSearch(value[2], lNr);
+            $('#searchInput').attr('placeholder', 'alle ' + value[1].de + ' Begriffe');
+            $('#searchGroup').show();
+            show = true;
+        }
+    }
+    if (!show) {
+        $('#searchGroup').hide();
+    }
 
 }
 
@@ -154,6 +173,11 @@ async function allConcepts() {
         fetch(ep + tP.a[0] + query).then(response => response.json()),
     ]);
 
+    tP.g.push(res[0].results.bindings);
+    tP.t.push(res[1].results.bindings);
+    tP.l.push(res[2].results.bindings);
+    tP.a.push(res[3].results.bindings);
+
     aC = new Map([...res[0].results.bindings, //list of all concepts
             ...res[1].results.bindings,
             ...res[2].results.bindings,
@@ -165,7 +189,6 @@ async function allConcepts() {
             label: a.L.value,
             color: a.color.value
         }]));
-    //console.log(aC);
 }
 
 function key2text(k) {
@@ -283,4 +306,40 @@ function statusSymbol(msg) {
         smiley = `<i class="fas fa-smile fa-2x" style="color:LimeGreen;"></i>`;
     }
     return smiley;
+}
+
+//Autocomplete text input for one category
+
+function actSearch(t, lNr) {
+
+    $('#searchInput').focusout(function () {
+        $('#dropdown').delay(300).hide(0, function () {
+            $('#dropdown').empty();
+            $('#searchInput').val('');
+        });
+    });
+
+    $('#searchInput').on('input', function () {
+        $('#dropdown').empty();
+        if ($('#searchInput').val().length > 0) {
+            $('#dropdown').show();
+            let autoSuggest = new Fuse(t, options).search($('#searchInput').val());
+            $.each(autoSuggest.slice(0, 10), function (index, value) {
+                let entry = value.L.value; // + ' <a href=""><i class="fas fa-external-link-alt"></i></a>';
+                $('#dropdown').append(`<tr>
+                                            <td 
+                                            class="searchLink dropdown-item" 
+                                            onclick="addCode('${value.s.value}','${lNr}');$('#searchGroup').hide();">
+                                                ${entry}
+                                            </td>
+                                        </tr>`);
+            });
+        }
+    });
+}
+
+function addCode(uri, lNr) {
+    let a = $('#keyValue' + lNr);
+    a.text(a.text() + uri.split('/').slice(-1));
+    update(lNr, a.text());
 }

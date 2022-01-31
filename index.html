@@ -11,7 +11,13 @@
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/key.js"></script>
     <script src="js/comments.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js" charset="utf-8"></script>
     <style>
+        body {
+            min-height: 75rem;
+            padding-top: 4.5rem;
+        }
+
         th {
             cursor: pointer;
         }
@@ -22,28 +28,52 @@
 
         ul {
             list-style-type: none;
-            /* Remove bullets */
             padding: 0;
-            /* Remove padding */
             margin: 2px;
-            /* Remove margins */
         }
 
         li {
             text-align: left;
             font-size: small;
         }
+
+        #dropdown {
+            background-color: grey;
+            min-width: 200px;
+            /* position: relative; */
+            /* z-index: 999; */
+        }
+
+        #dropdown td {
+            padding: .1rem;
+            padding-left: .75rem;
+            background-color: rgb(233, 233, 233);
+            cursor: pointer;
+        }
+
+        #searchInput {
+            background-color: rgb(46, 45, 45);
+            color: gray;
+        }
+
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Geologische Einheiten</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
                 aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <div id="searchGroup" class="input-group" style="width: 300px;">
+                <input id="searchInput" type="text" class="form-control" placeholder="Search for...">
+                <div style="position: absolute; top: 39px;">
+                    <table id="dropdown" class="table table-hover"></table>
+                </div>
+            </div>
 
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
@@ -73,11 +103,6 @@
                         </div>
                     </li> -->
                 </ul>
-
-                <!-- <form class="d-flex">
-                    <input class="form-control me-sm-2" type="text" placeholder="Search">
-                    <button style="margin-left:-10px;" class="btn btn-secondary my-2 my-sm-0" type="submit">select</button>
-                </form>&nbsp;&nbsp; -->
 
                 <button id="addRowBtn" type="button" class="btn btn-success"">add row</button>&nbsp;&nbsp;
                 <div class=" form-group">
@@ -133,51 +158,33 @@
                         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
                         table = document.getElementById("myTable");
                         switching = true;
-                        //Set the sorting direction to ascending:
                         dir = "asc";
-                        /*Make a loop that will continue until
-                        no switching has been done:*/
                         while (switching) {
-                            //start by saying: no switching is done:
                             switching = false;
                             rows = table.rows;
-                            /*Loop through all table rows (except the
-                            first, which contains table headers):*/
                             for (i = 1; i < (rows.length - 1); i++) {
-                                //start by saying there should be no switching:
                                 shouldSwitch = false;
-                                /*Get the two elements you want to compare,
-                                one from current row and one from the next:*/
                                 x = rows[i].getElementsByTagName("TD")[n];
                                 y = rows[i + 1].getElementsByTagName("TD")[n];
-                                /*check if the two rows should switch place,
-                                based on the direction, asc or desc:*/
                                 if (dir == "asc") {
                                     if (getSortable(x.innerHTML.toLowerCase()) > getSortable(y.innerHTML
                                             .toLowerCase())) {
-                                        //if so, mark as a switch and break the loop:
                                         shouldSwitch = true;
                                         break;
                                     }
                                 } else if (dir == "desc") {
                                     if (getSortable(x.innerHTML.toLowerCase()) < getSortable(y.innerHTML
                                             .toLowerCase())) {
-                                        //if so, mark as a switch and break the loop:
                                         shouldSwitch = true;
                                         break;
                                     }
                                 }
                             }
                             if (shouldSwitch) {
-                                /*If a switch has been marked, make the switch
-                                and mark that a switch has been done:*/
                                 rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                                 switching = true;
-                                //Each time a switch is done, increase this count by 1:
                                 switchcount++;
                             } else {
-                                /*If no switching has been done AND the direction is "asc",
-                                set the direction to "desc" and run the while loop again.*/
                                 if (switchcount == 0 && dir == "asc") {
                                     dir = "desc";
                                     switching = true;
