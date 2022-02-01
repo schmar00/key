@@ -130,7 +130,7 @@ function exportCSV(text) {
 }
 
 function update(lNr, e) {
-
+    e = e.split('<')[0]; //<br>??
     $('#' + 'colorValue' + lNr).html(key2text(e).color);
     $('#' + 'textValue' + lNr).html(key2text(e).text);
     $('#' + 'rLithValue' + lNr).html(key2text(e).rLith);
@@ -145,11 +145,12 @@ function update(lNr, e) {
         if (key == a) {
             actSearch(value[2], lNr);
             $('#searchInput').attr('placeholder', 'alle ' + value[1].de + ' Begriffe');
-            $('#searchGroup').show();
             show = true;
         }
     }
-    if (!show) {
+    if (show) {
+        $('#searchGroup').show();
+    } else {
         $('#searchGroup').hide();
     }
 
@@ -158,9 +159,11 @@ function update(lNr, e) {
 async function allConcepts() {
 
     let query = '?query=' + encodeURIComponent(`PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
-                                                select ?s ?L (coalesce(?c, "") as ?color)
+                                                PREFIX gba:<http://resource.geolba.ac.at/PoolParty/schema/GBA/>
+                                                select distinct ?s ?L (coalesce(?c, "") as ?color)
                                                 where {
-                                                ?s skos:prefLabel ?L filter(lang(?L)="${USER_LANG}")
+                                                {?s skos:prefLabel ?L} MINUS {?s gba:GBA_Status 3}
+                                                filter(lang(?L)="de") filter(!regex(str(?L), '^\\\\[.*'))
                                                 optional {?s <http://dbpedia.org/ontology/colourHexCode> ?c}
                                                 }`) + '&format=application/json';
 
