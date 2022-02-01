@@ -160,10 +160,11 @@ async function allConcepts() {
 
     let query = '?query=' + encodeURIComponent(`PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
                                                 PREFIX gba:<http://resource.geolba.ac.at/PoolParty/schema/GBA/>
+                                                PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
                                                 select distinct ?s ?L (coalesce(?c, "") as ?color)
                                                 where {
-                                                {?s skos:prefLabel ?L} MINUS {?s gba:GBA_Status 3}
-                                                filter(lang(?L)="de") filter(!regex(str(?L), '^\\\\[.*'))
+                                                {?s ?p ?o; skos:prefLabel ?L filter(lang(?L)="de") filter(!regex(str(?L), '^\\[.*'))}
+                                                MINUS {?s gba:GBA_Status "3"^^xsd:integer}
                                                 optional {?s <http://dbpedia.org/ontology/colourHexCode> ?c}
                                                 }`) + '&format=application/json';
 
@@ -293,9 +294,6 @@ function key2text(k) {
     legText = legText.replace(' (; );', '').replace('; );', ')');
     if (legText.includes('<strong></strong> (')) {
         legText = legText.replace('<strong></strong> (', '').replace(')', '');
-    }
-    if (legText.includes('[')) {
-        msg.set('bracket', 'Konzepte in eckigen Klammern sollten nicht für die Harmonisierung verwendet werden');
     }
 
 
