@@ -140,20 +140,14 @@ function update(lNr, e) {
     toolTips();
 
     let a = e.slice(-1);
-    let show = false;
+    $('#searchGroup').hide();
     for (let [key, value] of Object.entries(tP)) {
         if (key == a) {
             actSearch(value[2], lNr);
             $('#searchInput').attr('placeholder', 'alle ' + value[1].de + ' Begriffe');
-            show = true;
+            $('#searchGroup').show();
         }
     }
-    if (show) {
-        $('#searchGroup').show();
-    } else {
-        $('#searchGroup').hide();
-    }
-
 }
 
 async function allConcepts() {
@@ -163,7 +157,7 @@ async function allConcepts() {
                                                 PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
                                                 select distinct ?s ?L (coalesce(?c, "") as ?color)
                                                 where {
-                                                {?s ?p ?o; skos:prefLabel ?L filter(lang(?L)="de") filter(!regex(str(?L), '^\\[.*'))}
+                                                {?s ?p ?o; skos:prefLabel ?L filter(lang(?L)="de") filter(!regex(str(?L), '^\\\\[.*'))}
                                                 MINUS {?s gba:GBA_Status "3"^^xsd:integer}
                                                 optional {?s <http://dbpedia.org/ontology/colourHexCode> ?c}
                                                 }`) + '&format=application/json';
@@ -196,6 +190,7 @@ async function allConcepts() {
 }
 
 function key2text(k) {
+
     if (k.includes('<')) { //clean for copy and paste texts
         k = k.split('>')[1].split('<')[0];
     }
@@ -295,7 +290,9 @@ function key2text(k) {
     if (legText.includes('<strong></strong> (')) {
         legText = legText.replace('<strong></strong> (', '').replace(')', '');
     }
-
+    if(!checkOrder(k)){
+        msg.set('order', 'Reihung der Attribute falsch (g,t,rl,l,ra,a)');
+    }
 
     return new Feat(color, legText, rLithValue, rAgeValue, 'DN', statusSymbol(msg)); //color, text, ml, pa, descPurpose, status
 }
@@ -307,6 +304,21 @@ function statusSymbol(msg) {
         smiley = `<i class="fas fa-smile fa-2x" style="color:LimeGreen;"></i>`;
     }
     return smiley;
+}
+
+function checkOrder(g) {
+    let order = ['g', 't', 'rl', 'l', 'ra', 'a'];
+    let chkOrd = true;
+    let gArr = g.replace(/[0-9]/g, '').split('-');
+    let k = 0;
+    for (let i of gArr) {
+        let newIndex = order.findIndex((e) => e == i);
+        if (newIndex < k) {
+            chkOrd = false;
+        }
+        k = newIndex;
+    }
+    return chkOrd;
 }
 
 //Autocomplete text input for one category
