@@ -1,5 +1,6 @@
 let USER_LANG = 'de'; //(navigator.language || navigator.language).substring(0, 2);
 let aC; // Map of all thesaurus concepts
+const ep = 'https://resource.geolba.ac.at/PoolParty/sparql/';
 
 const options = { //fuse options
     shouldSort: true,
@@ -66,6 +67,7 @@ function addCSV(csvArr) {
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
+
     $('#searchGroup').hide();
     $("#addRowBtn").click(function () {
         let l = addRow();
@@ -97,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         USER_LANG = urlParams.get('lang');
     }
     allConcepts();
+
 });
 
 let lineNr = 0;
@@ -162,8 +165,6 @@ async function allConcepts() {
                                                 optional {?s <http://dbpedia.org/ontology/colourHexCode> ?c}
                                                 }`) + '&format=application/json';
 
-    const ep = 'https://resource.geolba.ac.at/PoolParty/sparql/';
-
     let res = await Promise.all([
         fetch(ep + tP.g[0] + query).then(response => response.json()),
         fetch(ep + tP.t[0] + query).then(response => response.json()),
@@ -197,18 +198,29 @@ function key2text(k) {
 
     let msg = new Map(errorMsg);
     let kArr = k.replace(/r/g, '').split('-');
+    let dP = '';
     for (let a of kArr) {
         try {
             let x = aC.get(a).label;
         } catch (e) {
-            msg.set('code', 'ungültige(r) Code(s) - ' + a);
+            switch (a) {
+                case 'DN':
+                    dP = 'definingNorm';
+                    break;
+                case 'TN':
+                    dP = 'typicalNorm';
+                    break;
+                case 'IN':
+                    dP = 'instance';
+                    break;
+                default:
+                    msg.set('code', 'ungültige(r) Code(s) - ' + a);
+            }
         }
-
     }
     //console.log(k);
     let color = '';
     let legText = '';
-
 
     for (let t in tP) { //iterate all thesaurus projects
         let tArr = kArr.filter(a => a.includes(t));
@@ -290,11 +302,15 @@ function key2text(k) {
     if (legText.includes('<strong></strong> (')) {
         legText = legText.replace('<strong></strong> (', '').replace(')', '');
     }
-    if(!checkOrder(k)){
+    if (!checkOrder(k)) {
         msg.set('order', 'Reihung der Attribute falsch (g,t,rl,l,ra,a)');
     }
 
-    return new Feat(color, legText, rLithValue, rAgeValue, 'DN', statusSymbol(msg)); //color, text, ml, pa, descPurpose, status
+    if (dP == '') {
+        msg.set('descriptionPurpose', 'Description Purpose fehlt');
+    }
+
+    return new Feat(color, legText, rLithValue, rAgeValue, dP, statusSymbol(msg)); //color, text, ml, pa, descPurpose, status
 }
 
 function statusSymbol(msg) {
@@ -307,7 +323,7 @@ function statusSymbol(msg) {
 }
 
 function checkOrder(g) {
-    let order = ['g', 't', 'rl', 'l', 'ra', 'a'];
+    let order = ['g', 't', 'rl', 'l', 'ra', 'a', 'DN', 'TN', 'IN'];
     let chkOrd = true;
     let gArr = g.replace(/[0-9]/g, '').split('-');
     let k = 0;
