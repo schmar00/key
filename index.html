@@ -59,6 +59,23 @@
             background-color: rgb(46, 45, 45);
             color: gray;
         }
+
+        .magic-text {
+            color: transparent;
+            font-size: 0;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 1000;
+            color: red;
+            width: 3rem;
+            height: 3rem;
+            text-align: center;
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -119,6 +136,11 @@
 
             <!-- <p class=" content" hidden></p> -->
                 <div style="padding: 20px;">
+                    <div class="loading">
+                        <span class="spinner-border text-primary" role="status"></span>
+                    </div>
+
+
                     <table id="myTable" class="table table-hover table-sm" style="width:100%">
                         <tr>
                             <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
@@ -171,13 +193,13 @@
                                 y = rows[i + 1].getElementsByTagName("TD")[n];
                                 if (dir == "asc") {
                                     if (getSortable(x.innerHTML.toLowerCase()) > getSortable(y.innerHTML
-                                            .toLowerCase())) {
+                                        .toLowerCase())) {
                                         shouldSwitch = true;
                                         break;
                                     }
                                 } else if (dir == "desc") {
                                     if (getSortable(x.innerHTML.toLowerCase()) < getSortable(y.innerHTML
-                                            .toLowerCase())) {
+                                        .toLowerCase())) {
                                         shouldSwitch = true;
                                         break;
                                     }
