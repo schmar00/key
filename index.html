@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>GU-Key</title>
     <!-- <link rel="icon" type="image/x-icon" href="favicon.ico" /> -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/FontAwesome/all.min.css" rel="stylesheet"/>
+    <link href="css/FontAwesome/all.min.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet">
     <link href="css/theme.css" rel="stylesheet">
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -22,63 +23,64 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">GSA</a>
+            <a class="navbar-brand" href="#">GeoSphere Austria</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div id="searchGroup" class="input-group" style="width: 300px;">
+            <div id="searchGroup" class="col-md-4">
                 <input id="searchInput" type="text" class="form-control" placeholder="filter...">
-                <div style="position: absolute; top: 39px;">
+                <!-- <div style="position: absolute; top: 39px;">
                     <table id="dropdown" class="table table-hover"></table>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <input class="form-control" type="text" value="Jane">
-            </div>
-
+                </div> -->
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
             <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
+                <!-- <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-            <a class="nav-link active" href="#">Home
-                <span class="visually-hidden">(current)</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-        </li> 
-                </ul>
+                        <a class="nav-link active" href="#">Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </li>
+                </ul> -->
 
-                <button id="addRowBtn" type="button" class="btn btn-outline-success">add line</button>&nbsp;&nbsp;
-                <div class=" form-group">
+                <button id="addRowBtn" type="button" class="btn btn-danger align-bottom mr-1">add line</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- <div class=" form-group"> -->
                     <input class="form-control" type="file" onchange="GUKey.previewFile()" accept=".csv">
-                </div>&nbsp;&nbsp;&nbsp;
-                <button id="exportBtn" type="button" class="btn btn-outline-success">CSV</button>
+                    &nbsp;&nbsp;&nbsp;
+                <!-- </div>&nbsp;&nbsp;&nbsp; -->
+                <button id="exportBtn" type="button" class="btn btn-info align-bottom mr-1">CSV download</button>
                 &nbsp;
-                <div class=" form-group">
-                    <select class="form-control btn-success" id="csvDelimiter"><option selected="selected" value="tab">CSV Separator: Tab</option><option value="comma">CSV Separator: Komma</option><option value="semi">CSV Separator: Semikolon</option></select>
-                </div>&nbsp;&nbsp;
+                <!-- <div class=" form-group"> -->
+                    <select class="form-control btn btn-primary align-bottom btn-sm" id="csvDelimiter" style="width:110px">
+                        <option selected="selected" value="tab">Separator: Tab</option>
+                        <option value="comma">Separator: Komma</option>
+                        <option value="semi">Separator: Semikolon</option>
+                    </select>
+                <!-- </div>&nbsp;&nbsp; -->
             </div>
         </div>
 
@@ -90,7 +92,7 @@
             <span class="spinner-border text-primary" role="status"></span>
         </div>
 
-        <p><small>Tip: Klicken Sie mit der rechten Maustaste auf eine Tabellenzeile, um das Kontextmenü zu öffnen.</small></p>
+        <p><small><strong>Tip:</strong> mit der rechten Maustaste Zeilen bearbeiten</small></p>
         <table id="myTable" class="table table-hover table-sm" style="width:100%">
             <tr>
                 <!--When a header is clicked, run the GUKey.sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
@@ -114,9 +116,9 @@
         </table>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tableMenu">
-            <a class="dropdown-item" href="#" onclick="GUKey.addNewRow(true,this);">Tabellenzeile vorher einfügen</a>
-            <a class="dropdown-item" href="#" onclick="GUKey.addNewRow(true,null, this);">Tabellenzeile einfügen nach</a>
-            <a class="dropdown-item" href="#" onclick="GUKey.deleteRow();">Tabellenzeile löschen</a>
+            <a class="dropdown-item" href="#" onclick="GUKey.addNewRow(true,this);">Zeile davor einfügen</a>
+            <a class="dropdown-item" href="#" onclick="GUKey.addNewRow(true,null, this);">Zeile danach einfügen</a>
+            <a class="dropdown-item" href="#" onclick="GUKey.deleteRow();">Zeile löschen</a>
         </div>
     </div>
 </body>
