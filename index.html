@@ -1,224 +1,124 @@
 <!DOCTYPE html>
-
+<html>
 <head>
     <title>GU-Key</title>
     <!-- <link rel="icon" type="image/x-icon" href="favicon.ico" /> -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/FontAwesome/all.min.css" />
+    <link href="css/FontAwesome/all.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/theme.css" rel="stylesheet">
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/key.js"></script>
+    <script src="js/GUKey.js"></script>
+    <script src="js/keyComplete.js"></script>
     <script src="js/comments.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js" charset="utf-8"></script>
-    <style>
-        body {
-            min-height: 75rem;
-            padding-top: 4.5rem;
-        }
+    <script src="js/init.js"></script>
+    <script src="js/fuse.min.js" charset="utf-8"></script>
 
-        th {
-            cursor: pointer;
-        }
-
-        td {
-            height: 30px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 2px;
-        }
-
-        li {
-            text-align: left;
-            font-size: small;
-        }
-
-        #dropdown {
-            background-color: grey;
-            min-width: 200px;
-            /* position: relative; */
-            /* z-index: 999; */
-        }
-
-        #dropdown td {
-            padding: .1rem;
-            padding-left: .75rem;
-            background-color: rgb(233, 233, 233);
-            cursor: pointer;
-        }
-
-        #searchInput {
-            background-color: rgb(46, 45, 45);
-            color: gray;
-        }
-
-        .magic-text {
-            color: transparent;
-            font-size: 0;
-        }
-
-        .loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            z-index: 1000;
-            color: red;
-            width: 3rem;
-            height: 3rem;
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Geologische Einheiten</a>
+            <a class="navbar-brand" href="#">GSA</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div id="searchGroup" class="input-group" style="width: 300px;">
-                <input id="searchInput" type="text" class="form-control" placeholder="Search for...">
+                <input id="searchInput" type="text" class="form-control" placeholder="filter...">
                 <div style="position: absolute; top: 39px;">
                     <table id="dropdown" class="table table-hover"></table>
                 </div>
             </div>
 
+            <div class="col-md-4">
+                <input class="form-control" type="text" value="Jane">
+            </div>
+
+
+
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
-                    <!-- <li class="nav-item">
-                        <a class="nav-link active" href="#">Home
-                            <span class="visually-hidden">(current)</span>
-                        </a>
-                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </li> -->
+            <a class="nav-link active" href="#">Home
+                <span class="visually-hidden">(current)</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+        </li> 
                 </ul>
 
-                <button id="addRowBtn" type="button" class="btn btn-success"">add row</button>&nbsp;&nbsp;
+                <button id="addRowBtn" type="button" class="btn btn-outline-success">add line</button>&nbsp;&nbsp;
                 <div class=" form-group">
-                    <input class="form-control" type="file" onchange="previewFile()" accept=".csv">
-            </div>&nbsp;&nbsp;
-            <button id="exportBtn" type="button" class="btn btn-success"">CSV download</button>
+                    <input class="form-control" type="file" onchange="GUKey.previewFile()" accept=".csv">
+                </div>&nbsp;&nbsp;&nbsp;
+                <button id="exportBtn" type="button" class="btn btn-outline-success">CSV</button>
+                &nbsp;
+                <div class=" form-group">
+                    <select class="form-control btn-success" id="csvDelimiter"><option selected="selected" value="tab">CSV Separator: Tab</option><option value="comma">CSV Separator: Komma</option><option value="semi">CSV Separator: Semikolon</option></select>
+                </div>&nbsp;&nbsp;
             </div>
         </div>
-        
+
     </nav>
 
-            <!-- <p class=" content" hidden></p> -->
-                <div style="padding: 20px;">
-                    <div class="loading">
-                        <span class="spinner-border text-primary" role="status"></span>
-                    </div>
+    <!-- <p class=" content" hidden></p> -->
+    <div style="padding: 20px;" id="myTableContainer">
+        <div class="loading">
+            <span class="spinner-border text-primary" role="status"></span>
+        </div>
 
+        <p><small>Tip: Klicken Sie mit der rechten Maustaste auf eine Tabellenzeile, um das Kontextmenü zu öffnen.</small></p>
+        <table id="myTable" class="table table-hover table-sm" style="width:100%">
+            <tr>
+                <!--When a header is clicked, run the GUKey.sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+                <th onclick="GUKey.selectRows()">
+                    <span style="color: crimson;">Select</span>&nbsp;
+                </th>
+                <th onclick="GUKey.sortTable(this)">
+                    <span style="color: crimson;">ID</span>&nbsp;&UpArrowDownArrow;
+                </th>
+                <th onclick="GUKey.sortTable(this)">
+                    <span style="color: crimson;">Key</span>&nbsp;&UpArrowDownArrow;
+                </th>
+                <th onclick="GUKey.sortTable(this)">color</th>
+                <th onclick="GUKey.sortTable(this)">text&nbsp;&UpArrowDownArrow;</th>
+                <th onclick="GUKey.sortTable(this)">rLith&nbsp;&UpArrowDownArrow;</th>
+                <th onclick="GUKey.sortTable(this)">rAge&nbsp;&UpArrowDownArrow;</th>
+                <th onclick="GUKey.sortTable(this)">descPurpose&nbsp;&UpArrowDownArrow;</th>
+                <th onclick="GUKey.sortTable(this,true)">status</th>
+                <th onclick="GUKey.sortTable(this)"><span style="color: crimson;">notes</span></th>
+            </tr>
+        </table>
 
-                    <table id="myTable" class="table table-hover table-sm" style="width:100%">
-                        <tr>
-                            <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
-                            <th onclick="sortTable(0)"><span style="color: crimson;">ID</span>&nbsp;&UpArrowDownArrow;
-                            </th>
-                            <th onclick="sortTable(1)"><span style="color: crimson;">Key</span>&nbsp;&UpArrowDownArrow;
-                            </th>
-                            <th onclick="sortTable(2)">color</th>
-                            <th onclick="sortTable(3)">text&nbsp;&UpArrowDownArrow;</th>
-                            <th onclick="sortTable(4)">rLith&nbsp;&UpArrowDownArrow;</th>
-                            <th onclick="sortTable(5)">rAge&nbsp;&UpArrowDownArrow;</th>
-                            <th onclick="sortTable(6)">descPurpose&nbsp;&UpArrowDownArrow;</th>
-                            <th onclick="sortTable(7)">status</th>
-                            <th onclick="sortTable(8)"><span style="color: crimson;">notes</span></th>
-                        </tr>
-                    </table>
-                </div>
-
-                <script>
-                    function toolTips() {
-                        //enable tooltips everywhere
-                        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-                        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                            return new bootstrap.Tooltip(tooltipTriggerEl)
-                        });
-                    }
-
-                    //eigene Modifikation
-                    function getSortable(a) {
-                        if (a.indexOf('>') > -1) {
-                            a = a.substring(a.indexOf('>') + 1);
-                            if (a.indexOf('&nbsp;') > -1) {
-                                a = a.substring(a.indexOf('>') + 6);
-                            }
-                        }
-                        return a
-                    }
-
-                    function sortTable(n) {
-                        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-                        table = document.getElementById("myTable");
-                        switching = true;
-                        dir = "asc";
-                        while (switching) {
-                            switching = false;
-                            rows = table.rows;
-                            for (i = 1; i < (rows.length - 1); i++) {
-                                shouldSwitch = false;
-                                x = rows[i].getElementsByTagName("TD")[n];
-                                y = rows[i + 1].getElementsByTagName("TD")[n];
-                                if (dir == "asc") {
-                                    if (getSortable(x.innerHTML.toLowerCase()) > getSortable(y.innerHTML
-                                        .toLowerCase())) {
-                                        shouldSwitch = true;
-                                        break;
-                                    }
-                                } else if (dir == "desc") {
-                                    if (getSortable(x.innerHTML.toLowerCase()) < getSortable(y.innerHTML
-                                        .toLowerCase())) {
-                                        shouldSwitch = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (shouldSwitch) {
-                                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                                switching = true;
-                                switchcount++;
-                            } else {
-                                if (switchcount == 0 && dir == "asc") {
-                                    dir = "desc";
-                                    switching = true;
-                                }
-                            }
-                        }
-                    }
-                </script>
-
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tableMenu">
+            <a class="dropdown-item" href="#" onclick="GUKey.addNewRow(true,this);">Tabellenzeile vorher einfügen</a>
+            <a class="dropdown-item" href="#" onclick="GUKey.addNewRow(true,null, this);">Tabellenzeile einfügen nach</a>
+            <a class="dropdown-item" href="#" onclick="GUKey.deleteRow();">Tabellenzeile löschen</a>
+        </div>
+    </div>
 </body>
 
 </html>

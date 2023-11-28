@@ -1,0 +1,149 @@
+﻿
+body {
+    min-height: 75rem;
+    padding-top: 4.5rem;
+}
+
+th {
+    cursor: pointer;
+}
+
+td {
+    height: 30px;
+    vertical-align: middle;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 2px;
+}
+
+li {
+    text-align: left;
+    font-size: small;
+}
+
+#dropdown {
+    background-color: grey;
+    min-width: 200px;
+    /* position: relative; */
+    /* z-index: 999; */
+}
+
+    #dropdown td {
+        padding: .1rem;
+        padding-left: .75rem;
+        background-color: rgb(233, 233, 233);
+        cursor: pointer;
+    }
+
+#searchInput {
+    background-color: rgb(46, 45, 45);
+    color: gray;
+}
+
+.magic-text {
+    color: transparent;
+    font-size: 0;
+}
+
+.icon-text {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    color: red;
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.fa-square {
+    font-size: 36px;
+    vertical-align: middle;
+}
+
+div.textarea:empty:before {
+    content: attr(placeholder);
+    pointer-events: none;
+    display: block; /* For Firefox */
+    color: gray;
+}
+
+/* *******keyComplete****************************** */
+
+.dropdown_class {
+    background-color: white;
+    display: none;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 20px;
+    border: 0.5px solid grey;
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 3px rgba(0,0,0,.12),0 4px 15px 0 rgba(0,0,0,.2);
+}
+
+    .dropdown_class td {
+        padding: .1rem;
+        padding-left: .75rem;
+        cursor: pointer;
+        min-width: 200px;
+    }
+
+.dropdown-filter {
+    margin-bottom: 5px;
+}
+
+.dropdown_class table {
+    background-color: white;
+}
+
+.keycomplete-header {
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 2px;
+    margin-right: 10px;
+    font-size: large;
+}
+
+.keycomplete-close {
+    background-color: white;
+    padding-top: 0;
+    padding-bottom: 0;
+    display: inline-block;
+    float: right;
+    vertical-align: middle;
+    border: 0.5px solid gray;
+}
+
+table.table-autocomplete tr.dropdown-row {
+    border-top-width: 1px;
+}
+
+.dropdown-item.mandatory {
+    font-weight:bold;
+}
+
+.dropdown-item {
+    border-top-width: 1px;
+}
+
+div.form-control {
+    min-height:38px;
+}
+
+#tableMenu {
+    display: none;
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 3px rgba(0,0,0,.12),0 4px 15px 0 rgba(0,0,0,.2);
+}
