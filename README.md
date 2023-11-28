@@ -17,8 +17,8 @@ t.. tektonische Einheit (Name)
 l.. lithologischer (Neben-)Bestandteil (present lithology)  
 *ra.. Alter (representative age)  
 a.. älteres Alter, jüngeres Alter,  
-p.. Event-Process,  
-e.. Event-Environment  
+p.. Event-Process, (dzt nicht implementiert)  
+e.. Event-Environment (dzt nicht implementiert)  
 *DN..defining norm / TN.. typical norm / IN.. instance  
   
 *.. Kodierung darf nur einmal vorkommen  
