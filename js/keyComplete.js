@@ -202,7 +202,7 @@
                     new Fuse(GUKey.allConcepts
                         .filter(a => a.code.charAt(0) == thesCode), GUKey.options).search(searchText);
 
-                $.each(autoSuggest.slice(0, 10), function (index, value) {
+                $.each(autoSuggest.slice(0, 7), function (index, value) {
                     let entry = value.typ == 'altLabel' ? '<i>' + value.label + '</i>' : value.label;
                     $(dropdownTable)
                         .append(`<tr>
