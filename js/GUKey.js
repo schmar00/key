@@ -23,7 +23,7 @@ var GUKey = {
     //global vars
     USER_LANG: 'de', //(navigator.language || navigator.language).substring(0, 2);
 
-    endPointBase: 'https://resource.geolba.ac.at/PoolParty/sparql/',
+    endPointBase: 'https://resource.geosphere.at/graphdb/repositories/thes',
 
     //fuse GUKey.options
     options: {
@@ -33,10 +33,10 @@ var GUKey = {
     },
 
     thesCode: {
-        GeologicUnit: 'g',
-        lithology: 'l',
-        GeologicTimeScale: 'a',
-        tectonicunit: 't'
+        geolunit: 'g',
+        lith: 'l',
+        time: 'a',
+        tect: 't'
     },
 
     allConcepts: null,
@@ -63,16 +63,13 @@ var GUKey = {
                         {?s ?p ?o; ?x ?L filter(lang(?L)="de") filter(!regex(str(?L), '^\\\\[.*'))}
                         MINUS {?s gba:GBA_Status "3"^^xsd:integer}
                         optional {?s dpo:colourHexCode ?c}
-                        }`) + '&format=application/json';
+                        }`) + '&Accept=application%2Fsparql-results%2Bjson';
 
-        let res = await Promise.all(thesList.map(a =>
-            fetch(endPointBase + a + query)
-                .then(response => response.json())
-        ));
-
-        GUKey.allConcepts = res
-            .map(a => a.results.bindings)
-            .flat(1)
+        let res = await fetch(endPointBase + query)
+                .then(response => response.json());
+                //.then(data => console.log(data));
+        
+        GUKey.allConcepts = res.results.bindings
             .map(b => Object({
                 code: GUKey.createCodeFromUri(b.s.value),
                 label: b.L.value,
@@ -100,13 +97,13 @@ var GUKey = {
                 color: ''
             });
         $('.loading').hide();
-        //console.log(GUKey.allConcepts, GUKey.prefLabelsMap);
+        console.log(GUKey.allConcepts, GUKey.prefLabelsMap);
     },
 
     //createCodeFromUri
     createCodeFromUri: function (uri) {
         let a = uri.split('/');
-        return GUKey.thesCode[a[3]] + a[4];
+        return GUKey.thesCode[a[4]] + a[5];
     },
 
     __lineNr: 0,
